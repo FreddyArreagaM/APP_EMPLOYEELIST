@@ -1,0 +1,63 @@
+<div class="container mt-3">
+
+    <!--Asignación de los valores a las variables corresponientes dentro del componente renderizado-->
+    <!-- Paso de información de componente Padre a componente Hijo-->
+    <!--Para asignar un @Input se usan los [variable] -->
+    <!--Para asignar un @Output se usan los (variable) -->
+    <app-count-empleados [todos]="obt_totalempleados()"
+                        [masculino]="obt_totalMasculino()"
+                        [femenino]="obt_totalFemenino()"
+                        (countRadioButtonEmp)="countEmpleados($event)">
+
+    </app-count-empleados><!--Renderización de un componentes dentro de otro-->
+
+
+    <!-- Metodo normal tener todos los elementos dentro de uno mismo componente
+    <div class="card">
+        <div class="card-body">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="radbutSeleccionado"
+                type="radio" id="todos" name="sexo" value="Todos">
+                <label class="form-check-label" for="todos">Todos({{obt_totalempleados()}})</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="radbutSeleccionado"
+                    type="radio" id="masculino" name="sexo" value="Masculino">
+                <label class="form-check-label" for="masculino">Masculino({{obt_totalMasculino()}})</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" [(ngModel)]="radbutSeleccionado"
+                type="radio" id="femenino" name="sexo" value="Femenino">
+                <label class="form-check-label" for="femenino">Femenino({{obt_totalFemenino()}})</label>
+            </div>
+        </div>
+    </div>-->
+    <div class="card mt-3">
+        <div class="card-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Cedula</th>
+                        <th >Nombre</th>
+                        <th >Apellido</th>
+                        <th >Sexo</th>
+                        <th>Salario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let empleado of listEmpleado"> <!-- Se utiliza porque dos *ng no pueden estar en la misma etiqueta-->
+                        <tr *ngIf="radbutSeleccionado == 'Todos' || radbutSeleccionado == empleado.sexo">
+                            <td>{{empleado.cedula}}</td>
+                            <td>{{empleado.nombre}}</td>
+                            <td>{{empleado.apellido}}</td>
+                            <td>{{empleado.sexo}}</td>
+                            <td>{{empleado.salario |currency}}</td>
+                        </tr>
+                    </ng-container>
+                    
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
